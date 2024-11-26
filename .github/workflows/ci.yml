@@ -7,7 +7,7 @@ permissions:
 
 jobs:
   Run-tests:
-    runs-on: [self-hosted, linux]
+    runs-on: ubuntu-latest
     steps:
         - name: checkout source code
           uses: actions/checkout@v3
