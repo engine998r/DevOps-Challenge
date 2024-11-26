@@ -33,3 +33,7 @@ spec:
         envFrom:
             - configMapRef:
                     name: env
+        securityContext:  
+          readOnlyRootFilesystem: true  
+          runAsUser: 1000  
+          runAsNonRoot: true 
