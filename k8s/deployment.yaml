@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name : test-app
+spec:
+  replicas: 1 
+  selector:
+    matchLabels:
+      app: test-app
+  template:
+    metadata:
+        labels:
+            app: test-app
+    spec:
+      containers:
+      - name: app
+        image: ghcr.io/engine998r/devops-challenge/test-app:1.0.0
+        env:
+            - name: REDIS_PASSWORD
+              valueFrom:
+                     secretKeyRef:
+                          name: redis
+                          key: REDIS_PASSWORD
+        resources:
+          requests:
+                memory: "64Mi"
+                cpu: "250m"
+          limits:
+                memory: "128Mi"
+                cpu: "500m"
+        ports:
+        - containerPort: 8000
+        envFrom:
+            - configMapRef:
+                    name: env
+        securityContext:  
+          readOnlyRootFilesystem: true  
+          runAsUser: 1000  
+          runAsNonRoot: true 

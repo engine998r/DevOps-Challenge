@@ -1,0 +1,36 @@
+name: CI
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  Run-tests:
+    runs-on: ubuntu-latest
+    steps:
+        - name: checkout source code
+          uses: actions/checkout@v3
+        - name: Install python dependencies
+          run: pip install -r requirements.txt
+        - name: Run Unit tests
+          run: python ./tests/test.py
+
+  build-test:
+    name: docker/build-test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Build
+        id: build
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: false
+          platforms: linux/amd64

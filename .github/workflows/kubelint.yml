@@ -1,0 +1,16 @@
+name: CI
+on:
+  pull_request:
+    branches: [master]
+    paths:
+      - 'k8s/**'
+jobs:
+  kubelint:
+    name: Kube-lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Scan repo with kube-linter
+        uses: stackrox/kube-linter-action@v1.0.5
+        with:
+          directory: k8s
