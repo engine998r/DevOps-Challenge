@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name : test-app
 spec:
-  replicas: 3 
+  replicas: 1 
   selector:
     matchLabels:
       app: test-app
@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: app
-        image: ghcr.io/engine998r/test-app:latest
+        image: ghcr.io/engine998r/devops-challenge/test-app:1.0.0
         env:
             - name: REDIS_PASSWORD
               valueFrom:
